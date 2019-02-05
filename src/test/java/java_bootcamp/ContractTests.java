@@ -11,15 +11,15 @@ import org.junit.Test;
 import static net.corda.testing.node.NodeTestUtils.transaction;
 
 public class ContractTests {
-//    private final TestIdentity alice = new TestIdentity(new CordaX500Name("Alice", "", "GB"));
-//    private final TestIdentity bob = new TestIdentity(new CordaX500Name("Bob", "", "GB"));
-//    private MockServices ledgerServices = new MockServices(new TestIdentity(new CordaX500Name("TestId", "", "GB")));
-//    private TokenState tokenState = new TokenState(alice.getParty(), bob.getParty(), 1);
+    private final TestIdentity alice = new TestIdentity(new CordaX500Name("Alice", "", "GB"));
+    private final TestIdentity bob = new TestIdentity(new CordaX500Name("Bob", "", "GB"));
+    private MockServices ledgerServices = new MockServices(new TestIdentity(new CordaX500Name("TestId", "", "GB")));
+    private TokenState tokenState = new TokenState(alice.getParty(), bob.getParty(), 1);
 
-//    @Test
-//    public void tokenContractImplementsContract() {
-//        assert(new TokenContract() instanceof Contract);
-//    }
+    @Test
+    public void tokenContractImplementsContract() {
+        assert(new TokenContract() instanceof Contract);
+    }
 
 //    @Test
 //    public void tokenContractRequiresZeroInputsInTheTransaction() {
