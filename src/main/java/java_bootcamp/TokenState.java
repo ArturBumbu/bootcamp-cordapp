@@ -22,6 +22,30 @@ public class TokenState implements ContractState {
 
     }
 
+    public Party getIssuer() {
+        return issuer;
+    }
+
+    public void setIssuer(Party issuer) {
+        this.issuer = issuer;
+    }
+
+    public Party getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Party owner) {
+        this.owner = owner;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     @NotNull
     @Override
     public List<AbstractParty> getParticipants() {

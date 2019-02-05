@@ -21,25 +21,25 @@ public class ContractTests {
         assert(new TokenContract() instanceof Contract);
     }
 
-//    @Test
-//    public void tokenContractRequiresZeroInputsInTheTransaction() {
-//        transaction(ledgerServices, tx -> {
-//            // Has an input, will fail.
-//            tx.input(TokenContract.ID, tokenState);
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Has no input, will verify.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresZeroInputsInTheTransaction() {
+        transaction(ledgerServices, tx -> {
+            // Has an input, will fail.
+            tx.input(TokenContract.ID, tokenState);
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Has no input, will verify.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 
 //    @Test
 //    public void tokenContractRequiresOneOutputInTheTransaction() {
