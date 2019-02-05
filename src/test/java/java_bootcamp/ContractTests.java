@@ -61,25 +61,25 @@ public class ContractTests {
         });
     }
 
-//    @Test
-//    public void tokenContractRequiresOneCommandInTheTransaction() {
-//        transaction(ledgerServices, tx -> {
-//            tx.output(TokenContract.ID, tokenState);
-//            // Has two commands, will fail.
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            tx.output(TokenContract.ID, tokenState);
-//            // Has one command, will verify.
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresOneCommandInTheTransaction() {
+        transaction(ledgerServices, tx -> {
+            tx.output(TokenContract.ID, tokenState);
+            // Has two commands, will fail.
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            tx.output(TokenContract.ID, tokenState);
+            // Has one command, will verify.
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 
 //    @Test
 //    public void tokenContractRequiresTheTransactionsOutputToBeATokenState() {

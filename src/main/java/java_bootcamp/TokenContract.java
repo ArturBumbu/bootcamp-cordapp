@@ -19,6 +19,8 @@ public class TokenContract implements Contract {
 //        The transaction has one output state
         if (tx.getOutputStates().size() != 1) throw new IllegalArgumentException("The transaction should have one output state");
 //        The transaction has one command
+        if (tx.getCommands().size() != 1) throw new IllegalArgumentException("The transaction should have one command");
+
 //        The output state is a TokenState
 //        The output state has a positive amount
 //        The command is an Issue command
