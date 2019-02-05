@@ -81,24 +81,24 @@ public class ContractTests {
         });
     }
 
-//    @Test
-//    public void tokenContractRequiresTheTransactionsOutputToBeATokenState() {
-//        transaction(ledgerServices, tx -> {
-//            // Has wrong output type, will fail.
-//            tx.output(TokenContract.ID, new DummyState());
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Has correct output type, will verify.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresTheTransactionsOutputToBeATokenState() {
+        transaction(ledgerServices, tx -> {
+            // Has wrong output type, will fail.
+            tx.output(TokenContract.ID, new DummyState());
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Has correct output type, will verify.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 
 //    @Test
 //    public void tokenContractRequiresTheTransactionsOutputToHaveAPositiveAmount() {
