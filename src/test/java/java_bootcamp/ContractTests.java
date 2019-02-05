@@ -139,24 +139,24 @@ public class ContractTests {
         });
     }
 
-//    @Test
-//    public void tokenContractRequiresTheTransactionsCommandToBeAnIssueCommand() {
-//        transaction(ledgerServices, tx -> {
-//            // Has wrong command type, will fail.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), DummyCommandData.INSTANCE);
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Has correct command type, will verify.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresTheTransactionsCommandToBeAnIssueCommand() {
+        transaction(ledgerServices, tx -> {
+            // Has wrong command type, will fail.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), DummyCommandData.INSTANCE);
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Has correct command type, will verify.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 
 //    @Test
 //    public void tokenContractRequiresTheIssuerToBeARequiredSignerInTheTransaction() {

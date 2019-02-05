@@ -25,6 +25,8 @@ public class TokenContract implements Contract {
 //        The output state has a positive amount
         if (!(((TokenState) tx.getOutputStates().get(0)).getAmount() > 0)) throw new IllegalArgumentException("The output state has a positive amount");
 //        The command is an Issue command
+        if (!(tx.getCommand(0).getValue() instanceof TokenContract.Commands.Issue)) throw new IllegalArgumentException("The command should be an Issue command");
+
 //        The command lists the TokenState's issuer as a required signer
     }
 
