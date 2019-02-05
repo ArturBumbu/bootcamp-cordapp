@@ -41,25 +41,25 @@ public class ContractTests {
         });
     }
 
-//    @Test
-//    public void tokenContractRequiresOneOutputInTheTransaction() {
-//        transaction(ledgerServices, tx -> {
-//            // Has two outputs, will fail.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Has one output, will verify.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresOneOutputInTheTransaction() {
+        transaction(ledgerServices, tx -> {
+            // Has two outputs, will fail.
+            tx.output(TokenContract.ID, tokenState);
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Has one output, will verify.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 
 //    @Test
 //    public void tokenContractRequiresOneCommandInTheTransaction() {
