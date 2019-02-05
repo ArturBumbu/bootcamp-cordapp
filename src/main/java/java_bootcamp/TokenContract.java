@@ -23,6 +23,7 @@ public class TokenContract implements Contract {
 //        The output state is a TokenState
         if (!(tx.getOutputStates().get(0) instanceof TokenState)) throw new IllegalArgumentException("The output state should be a TokenState");
 //        The output state has a positive amount
+        if (!(((TokenState) tx.getOutputStates().get(0)).getAmount() > 0)) throw new IllegalArgumentException("The output state has a positive amount");
 //        The command is an Issue command
 //        The command lists the TokenState's issuer as a required signer
     }
