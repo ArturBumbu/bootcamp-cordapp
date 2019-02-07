@@ -1,11 +1,14 @@
 package java_bootcamp;
 
 import co.paralleluniverse.fibers.Suspendable;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.flows.*;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import net.corda.core.utilities.ProgressTracker;
+
+import java.util.List;
 
 /* Our flow, automating the process of updating the ledger.
  * See src/main/java/examples/ArtTransferFlowInitiator.java for an example. */
@@ -30,6 +33,9 @@ public class TokenIssueFlow extends FlowLogic<SignedTransaction> {
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
+
+        List<StateAndRef<TokenState>> artStateAndRefs = getServiceHub().getVaultService().queryBy(TokenState.class).getStates();
+
         // We choose our transaction's notary (the notary prevents double-spends).
         Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
         // We get a reference to our own identity.
@@ -39,13 +45,20 @@ public class TokenIssueFlow extends FlowLogic<SignedTransaction> {
          *         TODO 1 - Create our TokenState to represent on-ledger tokens!
          * ===========================================================================*/
         // We create our new TokenState.
-        TokenState tokenState = null;
+        TokenState newTokenState = new TokenState(issuer, owner, amount);
 
         /* ============================================================================
          *      TODO 3 - Build our token issuance transaction to update the ledger!
          * ===========================================================================*/
         // We build our transaction.
-        TransactionBuilder transactionBuilder = null;
+        TransactionBuilder transactionBuilder = new TransactionBuilder();
+        // After creating the `TransactionBuilder`, we must specify which
+        // notary it will use.
+        transactionBuilder.setNotary(notary);
+        transactionBuilder.addCommand(new TokenContract.Commands.Issue(),issuer.getOwningKey());
+
+        // We add the input ArtState to the transaction.
+        transactionBuilder.addOutputState(newTokenState,TokenContract.ID);
 
         /* ============================================================================
          *          TODO 2 - Write our TokenContract to control token issuance!
