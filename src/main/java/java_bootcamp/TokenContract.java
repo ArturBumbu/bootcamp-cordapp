@@ -1,11 +1,13 @@
 package java_bootcamp;
 
+import net.corda.core.contracts.Command;
 import net.corda.core.contracts.CommandData;
 import net.corda.core.contracts.Contract;
 import net.corda.core.transactions.LedgerTransaction;
 import org.jetbrains.annotations.NotNull;
 
-import static net.corda.core.contracts.ContractsDSL.requireThat;
+import java.security.PublicKey;
+import java.util.List;
 
 /* Our contract, governing how our state will evolve over time.
  * See src/main/java/examples/ArtContract.java for an example. */
@@ -25,9 +27,14 @@ public class TokenContract implements Contract {
 //        The output state has a positive amount
         if (!(((TokenState) tx.getOutputStates().get(0)).getAmount() > 0)) throw new IllegalArgumentException("The output state has a positive amount");
 //        The command is an Issue command
-        if (!(tx.getCommand(0).getValue() instanceof TokenContract.Commands.Issue)) throw new IllegalArgumentException("The command should be an Issue command");
-
+        Command<CommandData> command = tx.getCommand(0);
+        if (!(command.getValue() instanceof TokenContract.Commands.Issue)) throw new IllegalArgumentException("The command should be an Issue command");
 //        The command lists the TokenState's issuer as a required signer
+
+        final TokenState tokenState = tx.outputsOfType(TokenState.class).get(0);
+        final List<PublicKey> requiredSigners = command.getSigners();
+        if (!(requiredSigners.contains(tokenState.getIssuer().getOwningKey())))
+            throw new IllegalArgumentException("The command lists the TokenState's issuer as a required signer");
     }
 
     public interface Commands extends CommandData {

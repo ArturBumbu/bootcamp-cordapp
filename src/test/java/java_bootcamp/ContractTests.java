@@ -158,40 +158,40 @@ public class ContractTests {
         });
     }
 
-//    @Test
-//    public void tokenContractRequiresTheIssuerToBeARequiredSignerInTheTransaction() {
-//        TokenState tokenStateWhereBobIsIssuer = new TokenState(bob.getParty(), alice.getParty(), 1);
-//
-//        transaction(ledgerServices, tx -> {
-//            // Issuer is not a required signer, will fail.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(bob.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Issuer is also not a required signer, will fail.
-//            tx.output(TokenContract.ID, tokenStateWhereBobIsIssuer);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.fails();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Issuer is a required signer, will verify.
-//            tx.output(TokenContract.ID, tokenState);
-//            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//
-//        transaction(ledgerServices, tx -> {
-//            // Issuer is also a required signer, will verify.
-//            tx.output(TokenContract.ID, tokenStateWhereBobIsIssuer);
-//            tx.command(bob.getPublicKey(), new TokenContract.Commands.Issue());
-//            tx.verifies();
-//            return null;
-//        });
-//    }
+    @Test
+    public void tokenContractRequiresTheIssuerToBeARequiredSignerInTheTransaction() {
+        TokenState tokenStateWhereBobIsIssuer = new TokenState(bob.getParty(), alice.getParty(), 1);
+
+        transaction(ledgerServices, tx -> {
+            // Issuer is not a required signer, will fail.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(bob.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Issuer is also not a required signer, will fail.
+            tx.output(TokenContract.ID, tokenStateWhereBobIsIssuer);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.fails();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Issuer is a required signer, will verify.
+            tx.output(TokenContract.ID, tokenState);
+            tx.command(alice.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+
+        transaction(ledgerServices, tx -> {
+            // Issuer is also a required signer, will verify.
+            tx.output(TokenContract.ID, tokenStateWhereBobIsIssuer);
+            tx.command(bob.getPublicKey(), new TokenContract.Commands.Issue());
+            tx.verifies();
+            return null;
+        });
+    }
 }
